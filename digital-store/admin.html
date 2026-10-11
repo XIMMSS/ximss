@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — XIMSS</title>
+  <link rel="icon" id="favicon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
+</head>
+<body class="admin-body">
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon" id="nav-icon">⚡</span>
+        <span class="logo-text" id="shop-name">XIMSS</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">← Back to Store</a></li>
+        <li><a href="#products-admin" class="nav-link active">Products</a></li>
+        <li><a href="#settings" class="nav-link">Settings</a></li>
+        <li><a href="#orders" class="nav-link">Orders</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="admin-main">
+    <div class="container">
+      <header class="admin-header">
+        <h1>Admin Dashboard</h1>
+        <p>Manage products, prices, banner, icon & store text</p>
+      </header>
+
+      <!-- Settings Section -->
+      <section class="admin-section" id="settings">
+        <h2 class="admin-section-title">Store Settings</h2>
+        <div class="admin-card">
+          <form id="settings-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Shop Name</label>
+                <input type="text" id="setting-shop-name" value="XIMSS" />
+              </div>
+              <div class="form-group">
+                <label>Hero Title</label>
+                <input type="text" id="setting-hero-title" value="XIMSS" />
+              </div>
+              <div class="form-group full">
+                <label>Hero Subtitle</label>
+                <input type="text" id="setting-hero-subtitle" value="Premium digital software, tools & EXEs — instant delivery" />
+              </div>
+              <div class="form-group full">
+                <label>About Title</label>
+                <input type="text" id="setting-about-title" value="About XIMSS" />
+              </div>
+              <div class="form-group full">
+                <label>About Text</label>
+                <textarea id="setting-about-text" rows="4">XIMSS is your trusted source for premium digital software, utilities, and executable tools. Every product is carefully curated, tested, and delivered with a unique license key the moment you complete your order. Fast, secure, and built for developers and power users.</textarea>
+              </div>
+              <div class="form-group">
+                <label>Logo / Icon (emoji or text)</label>
+                <input type="text" id="setting-icon" value="⚡" maxlength="4" />
+              </div>
+              <div class="form-group">
+                <label>Banner Background URL (optional)</label>
+                <input type="url" id="setting-banner-url" placeholder="https://... or leave empty for default gradient" />
+              </div>
+              <div class="form-group full">
+                <label>Or Upload Banner Image</label>
+                <input type="file" id="setting-banner-file" accept="image/*" />
+                <div class="preview-box" id="banner-preview"></div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Settings</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Products Admin -->
+      <section class="admin-section" id="products-admin">
+        <div class="admin-section-header">
+          <h2 class="admin-section-title">Products</h2>
+          <button class="btn btn-primary" id="add-product-btn">+ Add Product</button>
+        </div>
+        <div class="admin-card">
+          <div class="table-wrap">
+            <table class="admin-table" id="products-table">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="products-tbody">
+                <!-- Dynamic -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Orders (simulated) -->
+      <section class="admin-section" id="orders">
+        <h2 class="admin-section-title">Recent Orders (Local)</h2>
+        <div class="admin-card">
+          <div class="table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Customer</th>
+                  <th>Email</th>
+                  <th>Items</th>
+                  <th>Total</th>
+                  <th>Key</th>
+                </tr>
+              </thead>
+              <tbody id="orders-tbody">
+                <!-- Dynamic -->
+              </tbody>
+            </table>
+          </div>
+          <p class="admin-hint">Orders are stored in your browser only (localStorage). Clear site data to reset.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Add / Edit Product Modal -->
+  <div class="modal-overlay" id="product-form-modal">
+    <div class="modal">
+      <button class="close-btn modal-close" id="close-product-form">×</button>
+      <div class="modal-body">
+        <h2 id="product-form-title">Add Product</h2>
+        <form id="product-form">
+          <input type="hidden" id="product-id" />
+          <div class="form-group">
+            <label>Product Name</label>
+            <input type="text" id="product-name" required placeholder="e.g. XIMSS Optimizer Pro" />
+          </div>
+          <div class="form-group">
+            <label>Short Description</label>
+            <input type="text" id="product-desc" required placeholder="One-line description" />
+          </div>
+          <div class="form-group">
+            <label>Full Description</label>
+            <textarea id="product-full-desc" rows="3" placeholder="Detailed features..."></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Price (USD)</label>
+              <input type="number" id="product-price" required min="0" step="0.01" placeholder="19.99" />
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <select id="product-category">
+                <option value="Utility">Utility</option>
+                <option value="Tool">Tool</option>
+                <option value="EXE">EXE</option>
+                <option value="Software">Software</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Product Image URL (optional)</label>
+            <input type="url" id="product-image" placeholder="https://..." />
+          </div>
+          <div class="form-group">
+            <label>Or Upload Image</label>
+            <input type="file" id="product-image-file" accept="image/*" />
+            <div class="preview-box" id="product-image-preview"></div>
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="product-active" checked /> Active (visible in store)
+            </label>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-ghost" id="cancel-product">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
